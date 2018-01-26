@@ -7,10 +7,12 @@ public class Avatar : Shape
     public AvatarParameters param;
 
     private Rigidbody rigid;
+	private float baseDrag;
 
     void Start()
     {
         rigid = GetComponent<Rigidbody>();
+		baseDrag = rigid.drag;
     }
 
     void Update()
@@ -25,6 +27,10 @@ public class Avatar : Shape
         {
             Thrust(input.y);
         }
+		else
+		{
+			rigid.drag = baseDrag;
+		}
     }
 
     private void Rotate(float input)
@@ -41,6 +47,10 @@ public class Avatar : Shape
         {
             rigid.AddForce(transform.forward * param.thrustPower * Time.deltaTime);
         }
+		else
+		{
+			rigid.drag = param.brakeForce;
+		}
     }
 
 }
