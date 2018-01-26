@@ -29,6 +29,9 @@ public class Shape : MonoBehaviour {
     {
         other.gameObject.GetComponent<Shape>().team = team;
         other.gameObject.transform.parent = this.transform;
+        // other.gameObject.GetComponent<Rigidbody>().isKinematic = true;
+        // other.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+        Destroy(other.gameObject.GetComponent<Rigidbody>());
     }
 
 
