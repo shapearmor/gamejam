@@ -46,6 +46,7 @@ public class Avatar : Shape
         if (input > 0.0f)
         {
             rigid.AddForce(transform.forward * param.thrustPower * Time.deltaTime);
+            // rigid.AddForceAtPosition(transform.forward * param.thrustPower * Time.deltaTime, transform.position, ForceMode.Force);
         }
 		else
 		{
