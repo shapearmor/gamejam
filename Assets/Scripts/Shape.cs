@@ -29,14 +29,11 @@ public class Shape : MonoBehaviour {
     void CollisionNeutral(Collision other)
     {
         other.gameObject.GetComponent<Shape>().team = team;
-<<<<<<< HEAD
         other.collider.gameObject.transform.parent = this.transform;
-=======
         other.gameObject.transform.parent = this.transform;
         // other.gameObject.GetComponent<Rigidbody>().isKinematic = true;
         // other.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
         Destroy(other.gameObject.GetComponent<Rigidbody>());
->>>>>>> 71d0b1c42718b21969b6827da1ee655c40bf8ddd
     }
 
 
