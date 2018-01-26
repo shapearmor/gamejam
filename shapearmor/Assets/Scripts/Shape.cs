@@ -14,13 +14,32 @@ public class Shape : MonoBehaviour {
         team = TeamEnum.Neutral;
     }
 
-    void OnTriggerEnter(Collider other)
+    void OnCollisionEnter (Collision other)
     {
+        Shape otherShape = other.gameObject.GetComponent<Shape>();
         if (other.gameObject.CompareTag("Shape"))
         {
             if (team != TeamEnum.Neutral) {
-                if(other)
+                if(otherShape.team == TeamEnum.Neutral)
+                {
+                    CollisionNeutral(other);
+                } else if (otherShape.team != team)
+                {
+                    otherShape.OnDestroy(this.gameObject);
+                }
             }
         }
+    }
+
+    void CollisionNeutral(Collision other)
+    {
+        other.gameObject.GetComponent<Shape>().team = team;
+        other.gameObject.transform.parent = this.transform;
+    }
+
+    void OnDestroy(GameObject otherObject)
+    {
+        Destroy(otherObject);
+        Destroy(this);
     }
 }
