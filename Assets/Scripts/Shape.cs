@@ -2,38 +2,45 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum TeamEnum { Neutral, Red, Bleu, }
+public enum TeamEnum { Neutral, Red, Blue, }
 
 public class Shape : MonoBehaviour {
     public TeamEnum team = TeamEnum.Neutral;
 
     void OnCollisionEnter (Collision other)
     {
-        Shape otherShape = other.gameObject.GetComponent<Shape>();
-        if (other.gameObject.CompareTag("Shape"))
+        if (other.collider.gameObject.CompareTag("Player")){
+            if(team == TeamEnum.Neutral)
+            {
+                CollisionNeutralToPlayer(other);
+            }
+        }
+        /*if (other.gameObject.CompareTag("Shape"))
         {
-            if (team != TeamEnum.Neutral) {
-                if (otherShape.team == TeamEnum.Neutral)
+            Shape otherShape = other.gameObject.GetComponent<Shape>();
+            if (otherShape == null) Debug.Log(other.gameObject.name);
+            if (team == TeamEnum.Neutral) {
+                if (otherShape.team != TeamEnum.Neutral)
                 {
                     Debug.Log("Collision " + this.gameObject.name);
                     CollisionNeutral(other);
-                } else if (otherShape.team != team)
-                {
-                    Debug.Log("Collision " + this.gameObject.name);
-                    otherShape.DestroyGameObject(this.gameObject);
                 }
+            } else if (otherShape.team != team)
+            {
+                Debug.Log("Collision " + this.gameObject.name);
+                otherShape.DestroyGameObject(this.gameObject);
             }
-        }
+        }*/
     }
 
-    void CollisionNeutral(Collision other)
+    void CollisionNeutralToPlayer(Collision other)
     {
-        other.gameObject.GetComponent<Shape>().team = team;
-        other.collider.gameObject.transform.parent = this.transform;
-        other.gameObject.transform.parent = this.transform;
+        team = other.gameObject.GetComponent<Avatar>().team;
+        this.transform.parent = other.collider.gameObject.transform.parent;
+        //other.gameObject.transform.parent = this.transform;
         // other.gameObject.GetComponent<Rigidbody>().isKinematic = true;
-        // other.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
-        Destroy(other.gameObject.GetComponent<Rigidbody>());
+        //other.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+        Destroy(this.GetComponent<Rigidbody>());
     }
 
 
