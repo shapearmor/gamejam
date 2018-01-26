@@ -19,6 +19,7 @@ public class Shape : MonoBehaviour {
                     CollisionNeutral(other);
                 } else if (otherShape.team != team)
                 {
+                    Debug.Log("Collision " + this.gameObject.name);
                     otherShape.DestroyGameObject(this.gameObject);
                 }
             }
@@ -28,7 +29,7 @@ public class Shape : MonoBehaviour {
     void CollisionNeutral(Collision other)
     {
         other.gameObject.GetComponent<Shape>().team = team;
-        other.gameObject.transform.parent = this.transform;
+        other.collider.gameObject.transform.parent = this.transform;
     }
 
 
