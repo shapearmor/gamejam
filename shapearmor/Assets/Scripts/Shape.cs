@@ -7,12 +7,7 @@ public enum TeamEnum { Neutral, Red, Bleu, }
 public class Shape : MonoBehaviour {
 
     [HideInInspector]
-    public TeamEnum team;
-
-    void Start()
-    {
-        team = TeamEnum.Neutral;
-    }
+    public TeamEnum team = TeamEnum.Neutral;
 
     void OnCollisionEnter (Collision other)
     {
