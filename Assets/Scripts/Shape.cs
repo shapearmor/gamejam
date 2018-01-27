@@ -34,39 +34,45 @@ public class Shape : MonoBehaviour
 
     void OnCollisionEnter(Collision other)
     {
-        Debug.Log("Hello " + this.gameObject.name + " | " + other.collider.gameObject.name);
-        if (other.collider.gameObject.CompareTag("Player"))
+
+        ContactPoint contact = other.contacts[0];
+        Debug.Log("Hello " + contact.thisCollider + " | " + contact.otherCollider);
+        if (contact.thisCollider.gameObject.GetComponent<Shape>() == null || contact.otherCollider.gameObject.GetComponent<Shape>() == null)
         {
-            if (team == TeamEnum.Neutral)
+            return;
+        }
+        TeamEnum thisTeam = contact.thisCollider.gameObject.GetComponent<Shape>().team;
+        TeamEnum otherTeam = contact.otherCollider.gameObject.GetComponent<Shape>().team;
+        if (contact.otherCollider.gameObject.CompareTag("Player")) {
+            if (thisTeam == TeamEnum.Neutral)
             {
-                CollisionNeutralToPlayer(other);
+                Debug.Log("Col NeutralToPlayer");
+                CollisionNeutralToPlayer(contact.otherCollider);
             }
-            else if (team != other.collider.gameObject.GetComponent<Avatar>().team && this.gameObject.tag != "Player")
+            else if (thisTeam != otherTeam && contact.thisCollider.gameObject.tag != "Player")
             {
-                FreeChild(other.collider.transform);
-                Destroy(other.collider.gameObject);
-                Destroy(this.gameObject);
+                Debug.Log("Col EnnemieToPlayer");
+                FreeChild(contact.otherCollider.transform);
+                Destroy(contact.otherCollider.gameObject);
+                FreeChild(contact.thisCollider.transform);
+                Destroy(contact.thisCollider.gameObject);
             }
         }
-        else if (other.collider.gameObject.CompareTag("Shape"))
+        else if (contact.otherCollider.gameObject.CompareTag("Shape") && contact.thisCollider.gameObject.tag != "Player")
         {
-            Shape otherShape = other.collider.gameObject.GetComponent<Shape>();
-            if (team == TeamEnum.Neutral && otherShape.team != TeamEnum.Neutral && this.gameObject.tag != "Player")
+            if (thisTeam == TeamEnum.Neutral && otherTeam != TeamEnum.Neutral)
             {
-                CollisionNeutralToShape(other);
+                Debug.Log("Col NeutralToShape");
+                CollisionNeutralToShape(contact.otherCollider);
             }
-            else if (team != TeamEnum.Neutral && otherShape.team != team && this.gameObject.tag != "Player")
+            else if (thisTeam != TeamEnum.Neutral && otherTeam != thisTeam)
             {
-                FreeChild(other.collider.transform);
-                Destroy(other.collider.gameObject);
-                FreeChild(this.transform);
-                Destroy(this.gameObject);
+                Debug.Log("Col EnnemieToShape");
+                FreeChild(contact.otherCollider.transform);
+                Destroy(contact.otherCollider.gameObject);
+                FreeChild(contact.thisCollider.transform);
+                Destroy(contact.thisCollider.gameObject);
             }
-            /*else if (this.gameObject.tag == "Player" && team != otherShape.team)
-            {
-                FreeChild(this.transform);
-                Destroy(this.gameObject);
-            }*/
         }
     }
 
@@ -79,33 +85,24 @@ public class Shape : MonoBehaviour
             {
                 FreeChild(other.GetChild(i));
                 other.GetChild(i).gameObject.GetComponent<Shape>().SwitchState(TeamEnum.Neutral);
-                //other.GetChild(i).gameObject.AddComponent<Rigidbody>();
-                other.GetChild(i).gameObject.GetComponent<Rigidbody>().isKinematic = false;
+                other.GetChild(i).gameObject.AddComponent<Rigidbody>();
                 other.GetChild(i).SetParent(null, true);
 
             }
         }
     }
 
-    void CollisionNeutralToShape(Collision other)
+    void CollisionNeutralToShape(Collider other)
     {
         SwitchState(other.gameObject.GetComponent<Shape>().team);
-        this.transform.SetParent(other.collider.gameObject.transform);
-        //Destroy(this.GetComponent<Rigidbody>());
-        this.GetComponent<Rigidbody>().isKinematic = true;
+        this.transform.SetParent(other.gameObject.transform);
+        Destroy(this.GetComponent<Rigidbody>());
     }
 
-    void CollisionNeutralToPlayer(Collision other)
+    void CollisionNeutralToPlayer(Collider other)
     {
         SwitchState(other.gameObject.GetComponent<Avatar>().team);
-        this.transform.SetParent(other.collider.gameObject.transform, true);
-        //Destroy(this.GetComponent<Rigidbody>());
-        this.GetComponent<Rigidbody>().isKinematic = true;
-    }
-
-    void DestroyGameObject(GameObject otherObject)
-    {
-        Destroy(otherObject);
-        Destroy(this);
+        this.transform.SetParent(other.gameObject.transform);
+        Destroy(this.GetComponent<Rigidbody>());
     }
 }
