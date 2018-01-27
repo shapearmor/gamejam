@@ -1,12 +1,56 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class MainMenuMngr : MonoBehaviour 
+public class MainMenuMngr : MonoBehaviour
 {
-	public void Play()
+    public Animator animator;
+    public Text showPlayerNumber;
+    public Text showRoundNumber;
+
+    private int playerNumber = 2;
+    private int roundNumber = 5;
+
+    public void PreBattle()
+    {
+        animator.SetTrigger("switch");
+    }
+
+    public void Play()
+    {
+		StartCoroutine(Launch());
+    }
+
+	private IEnumerator Launch()
 	{
-		SceneManager.LoadSceneAsync(1);
+		AsyncOperation operation = SceneManager.LoadSceneAsync(1, LoadSceneMode.Additive);
+		while (operation.isDone != true)
+		{
+			yield return null;
+		}
+		GameMngr mngr = FindObjectOfType<GameMngr>();
+		mngr.numberOfPlayers = playerNumber;
+		mngr.numberOfRound = roundNumber;
+		mngr.StartCoroutine(mngr.Init());
+		SceneManager.UnloadSceneAsync(SceneManager.GetSceneByBuildIndex(0));
 	}
+
+    public void UpdatePlayerNumber(Slider number)
+    {
+        playerNumber = (int)number.value;
+        showPlayerNumber.text = "Number of players : " + playerNumber;
+    }
+
+    public void UpdateRoundNumber(Slider number)
+    {
+        roundNumber = (int)number.value;
+        showRoundNumber.text = "Number of rounds : " + roundNumber;
+    }
+
+    public void Exit()
+    {
+        Application.Quit();
+    }
 }
