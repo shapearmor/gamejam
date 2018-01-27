@@ -127,7 +127,7 @@ public class GameMngr : MonoBehaviour
 
     private IEnumerator EndGame()
     {
-        winText.text = (TeamEnum)GetGameWinner() + " wins the game.";
+        winText.text = (TeamEnum)GetGameWinner() + " win the game.";
         winText.color = playerColors[GetGameWinner()];
         yield return new WaitForSeconds(5.0f);
         SceneManager.LoadSceneAsync(0);
@@ -150,7 +150,7 @@ public class GameMngr : MonoBehaviour
 
     private int GetNextSceneIndex()
     {
-        return Random.Range(levelsToLoad.a, levelsToLoad.b);
+        return (int) Random.Range(levelsToLoad.a, levelsToLoad.b+1);
     }
 
     private string GetRandomTauntMessage(string playerName)
