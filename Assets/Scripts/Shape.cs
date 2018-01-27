@@ -128,6 +128,11 @@ public class Shape : MonoBehaviour
             if (other.GetChild(i).gameObject.GetComponent<Shape>() != null)
             {
                 FreeChild(other.GetChild(i));
+                if (other.gameObject.GetComponentInParent<Avatar>() != null)
+                {
+                    if (other.gameObject.GetComponentInParent<Avatar>().pitchLevel > 0.2)
+                        other.gameObject.GetComponentInParent<Avatar>().pitchLevel -= 0.2f;
+                }
                 other.GetChild(i).gameObject.GetComponent<Shape>().SwitchState(TeamEnum.Neutral);
                 other.GetChild(i).gameObject.AddComponent<Rigidbody>();
                 other.GetChild(i).gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationX;
@@ -177,6 +182,11 @@ public class Shape : MonoBehaviour
 
     void FreeOne(Collider other)
     {
+        if(other.gameObject.GetComponentInParent<Avatar>() != null)
+        {
+            if(other.gameObject.GetComponentInParent<Avatar>().pitchLevel > 0.2)
+                other.gameObject.GetComponentInParent<Avatar>().pitchLevel -= 0.2f;
+        }
         other.gameObject.GetComponent<Shape>().SwitchState(TeamEnum.Neutral);
         other.gameObject.AddComponent<Rigidbody>();
         other.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationX;
@@ -233,6 +243,12 @@ public class Shape : MonoBehaviour
     void PlayDeath()
     {
         audioSource.clip = pop[0];
+        audioSource.pitch = gameObject.GetComponentInParent<Avatar>().pitchLevel;
+        if (gameObject.GetComponentInParent<Avatar>() != null)
+        {
+            if (gameObject.GetComponentInParent<Avatar>().pitchLevel <= 2.8)
+                gameObject.GetComponentInParent<Avatar>().pitchLevel += 0.2f;
+        }
         audioSource.Play();
         //System.Threading.Thread.Sleep(2000);
     }

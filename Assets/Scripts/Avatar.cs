@@ -11,6 +11,8 @@ public class Avatar : Shape
     private Rigidbody rigid;
     private float baseDrag;
 
+    public float pitchLevel = 0.2f;
+
     protected override void Start()
     {
         // base.Start();
