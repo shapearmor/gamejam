@@ -1028,6 +1028,21 @@ Prefab:
       propertyPath: m_Name
       value: Avatar (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 114160360132617540, guid: bb4c6ba697224964bba4e5ccfc7b2a0c,
+        type: 2}
+      propertyPath: team
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114160360132617540, guid: bb4c6ba697224964bba4e5ccfc7b2a0c,
+        type: 2}
+      propertyPath: playerType
+      value: P2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114160360132617540, guid: bb4c6ba697224964bba4e5ccfc7b2a0c,
+        type: 2}
+      propertyPath: enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bb4c6ba697224964bba4e5ccfc7b2a0c, type: 2}
   m_IsPrefabParent: 0
@@ -2595,6 +2610,11 @@ Prefab:
         type: 2}
       propertyPath: playerType
       value: P1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114160360132617540, guid: bb4c6ba697224964bba4e5ccfc7b2a0c,
+        type: 2}
+      propertyPath: enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bb4c6ba697224964bba4e5ccfc7b2a0c, type: 2}
