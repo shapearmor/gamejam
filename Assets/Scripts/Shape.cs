@@ -6,6 +6,8 @@ public enum TeamEnum { Neutral, Red, Blue, }
 
 public class Shape : MonoBehaviour
 {
+    public float explosionRadius = 5.0f;
+    public float explosionForce = 400.0f;
     public TeamEnum team = TeamEnum.Neutral;
 
     protected virtual void Start()
@@ -99,6 +101,19 @@ public class Shape : MonoBehaviour
         SwitchState(other.gameObject.GetComponent<Shape>().team);
         this.transform.SetParent(other.gameObject.transform);
         Destroy(this.GetComponent<Rigidbody>());
+    }
+
+    void OnDestroy()
+    {
+        Collider[] cols = Physics.OverlapSphere(transform.position, explosionRadius);
+        foreach(Collider col in cols)
+        {
+            Rigidbody rb = col.GetComponentInParent<Rigidbody>();
+            if (rb != null)
+            {
+                rb.AddExplosionForce(explosionForce, transform.position, explosionRadius);
+            }
+        }
     }
 
     void CollisionNeutralToPlayer(Collider other)

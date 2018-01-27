@@ -36,10 +36,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4233642555465176}
   - component: {fileID: 33052073016547336}
-  - component: {fileID: 65294397314528726}
   - component: {fileID: 23576747926134674}
   - component: {fileID: 114972499902229004}
-  - component: {fileID: 54304530476034832}
+  - component: {fileID: 54431236818609464}
+  - component: {fileID: 135297541922572550}
   m_Layer: 0
   m_Name: Shape
   m_TagString: Shape
@@ -115,7 +115,7 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1797610078507712}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!54 &54304530476034832
+--- !u!54 &54431236818609464
 Rigidbody:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -130,18 +130,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 84
   m_CollisionDetection: 0
---- !u!65 &65294397314528726
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1797610078507712}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &114972499902229004
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -153,7 +141,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb81957f7328e734f8c875768c6e918c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  explosionRadius: 10
+  explosionForce: 25
   team: 0
+--- !u!135 &135297541922572550
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1797610078507712}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.70415944
+  m_Center: {x: 0, y: 0, z: 0.054159462}
 --- !u!212 &212082720344724984
 SpriteRenderer:
   m_ObjectHideFlags: 1
