@@ -23,9 +23,7 @@ public class Shape : MonoBehaviour
 
     protected virtual void Update()
     {
-        if (transform.localEulerAngles.x != 0) transform.localEulerAngles.Set(0, 0, 0);
-        if (transform.localEulerAngles.y != 0) transform.localEulerAngles.Set(0, 0, 0);
-        if (transform.localEulerAngles.z != 0) transform.localEulerAngles.Set(0, 0, 0);
+        transform.localEulerAngles.Set(0, 0, 0);
     }
 
     public void SwitchState(TeamEnum newState)
@@ -212,9 +210,12 @@ public class Shape : MonoBehaviour
 
     void PlayPop()
     {
-        int index = Random.Range(0, pop.Length - 1);
-        audioSource.clip = pop[index];
-        audioSource.Play();
+        if(tag == "Shape")
+        {
+            int index = Random.Range(0, pop.Length - 1);
+            audioSource.clip = pop[index];
+            audioSource.Play();
+        }
     }
 
     void PlayDeath()
