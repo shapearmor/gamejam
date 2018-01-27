@@ -16,7 +16,8 @@ public class GameMngr : MonoBehaviour
 
     [Header("UI parameters")]
     public Text winText;
-	public Text[] scoreBoard;
+    public Text roundText;
+    public Text[] scoreBoard;
     public Color[] playerColors =
     {
         Color.red, Color.blue, Color.yellow, Color.green
@@ -27,7 +28,7 @@ public class GameMngr : MonoBehaviour
     private int actualNumberOfRounds = 0;
     private bool gameStarted = false;
 
-    private int[] scores = {0,0,0,0};
+    private int[] scores = { 0, 0, 0, 0 };
 
     public IEnumerator Init()
     {
@@ -42,7 +43,8 @@ public class GameMngr : MonoBehaviour
 
     private void SetupGame()
     {
-		UpdateScoreBoard();
+        UpdateScoreBoard();
+        winText.text = System.String.Empty;
         //Spawn all players
         for (int i = 0; i < numberOfPlayers; ++i)
         {
@@ -54,7 +56,7 @@ public class GameMngr : MonoBehaviour
 
     private IEnumerator GameIntro()
     {
-        yield return new WaitForSeconds(5.0f);
+        yield return new WaitForSeconds(1.0f);
         gameStarted = true;
         Avatar[] players = FindObjectsOfType<Avatar>();
         foreach (Avatar player in players)
@@ -87,25 +89,27 @@ public class GameMngr : MonoBehaviour
     {
         Avatar lastManStanding = FindObjectOfType<Avatar>();
         winText.text = GetRandomTauntMessage(lastManStanding.gameObject.name);
-		scores[(int)lastManStanding.team] ++;
+        scores[(int)lastManStanding.team]++;
         winText.color = playerColors[(int)lastManStanding.team];
     }
 
-	private void UpdateScoreBoard()
-	{
-		for (int i =0; i < scoreBoard.Length; ++i)
-		{
-			if (i < numberOfPlayers)
-			{
-				scoreBoard[i].text = scores[i].ToString();
-				scoreBoard[i].color = playerColors[i];
-			}
-			else
-			{
-				scoreBoard[i].text = System.String.Empty;
-			}
-		}
-	}
+    private void UpdateScoreBoard()
+    {
+        for (int i = 0; i < scoreBoard.Length; ++i)
+        {
+            if (i < numberOfPlayers)
+            {
+                scoreBoard[i].text = scores[i].ToString();
+                scoreBoard[i].color = playerColors[i];
+            }
+            else
+            {
+                scoreBoard[i].text = System.String.Empty;
+            }
+        }
+
+        roundText.text = "Round " + (actualNumberOfRounds + 1) + " of " + numberOfRound;
+    }
 
     private IEnumerator NextRoundTimer()
     {
@@ -121,28 +125,28 @@ public class GameMngr : MonoBehaviour
         SetupGame();
     }
 
-	private IEnumerator EndGame()
-	{
-		winText.text = (TeamEnum)GetGameWinner() + " wins the game.";
-		winText.color = playerColors[GetGameWinner()];
-		yield return new WaitForSeconds(5.0f);
-		SceneManager.LoadSceneAsync(0);
-	}
+    private IEnumerator EndGame()
+    {
+        winText.text = (TeamEnum)GetGameWinner() + " wins the game.";
+        winText.color = playerColors[GetGameWinner()];
+        yield return new WaitForSeconds(5.0f);
+        SceneManager.LoadSceneAsync(0);
+    }
 
-	private int GetGameWinner()
-	{
-		int maxScore = 0;
-		int index = 0;
-		for (int i = 0; i < scores.Length; ++i)
-		{
-			if (scores[i] > maxScore)
-			{
-				maxScore = scores[i];
-				index = i;
-			}
-		}
-		return index;
-	}
+    private int GetGameWinner()
+    {
+        int maxScore = 0;
+        int index = 0;
+        for (int i = 0; i < scores.Length; ++i)
+        {
+            if (scores[i] > maxScore)
+            {
+                maxScore = scores[i];
+                index = i;
+            }
+        }
+        return index;
+    }
 
     private int GetNextSceneIndex()
     {

@@ -30,6 +30,12 @@ public class Shape : MonoBehaviour
             euler.z = 0.0f;
             transform.rotation = Quaternion.Euler(euler);
         }
+        if (transform.position.y != 0.0f)
+        {
+            Vector3 position = transform.position;
+            position.y = 0.0f;
+            transform.position = position;
+        }
     }
 
     public void SwitchState(TeamEnum newState)
@@ -114,7 +120,7 @@ public class Shape : MonoBehaviour
         }
     }
 
-    protected void FreeChild(Transform other)
+    protected virtual void FreeChild(Transform other)
     {
         int children = other.childCount;
         for (int i = 0; i < children; ++i)

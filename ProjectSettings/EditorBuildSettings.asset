@@ -12,11 +12,14 @@ EditorBuildSettings:
     path: Assets/Scenes/ui.unity
     guid: 4d4faeada41dde9499723706da730ef8
   - enabled: 1
-    path: Assets/Scenes/lab_ludo.unity
-    guid: 0b845042095c59746bccbefb906daf7f
+    path: Assets/Scenes/LD/Niveau1.unity
+    guid: 2bf7f7b5a3022ab4783a07f6a6dbdd65
   - enabled: 1
-    path: Assets/Scenes/lab_nathan.unity
-    guid: d61517c79612cb94c885a1ac5fc5a5c0
+    path: Assets/Scenes/LD/Niveau2.unity
+    guid: 5a2cb0b8eb80974488fb2f16548230d0
   - enabled: 1
-    path: Assets/Scenes/lab_Cyrilloup.unity
-    guid: 2bd55624f70044943bb28edd525c3373
+    path: Assets/Scenes/LD/Niveau3.unity
+    guid: 31773a6b5b3901a4d8374bb8926e339b
+  - enabled: 1
+    path: Assets/Scenes/LD/Niveau4.unity
+    guid: a43d461d62c100a44b5e9defd9cf2d7b
