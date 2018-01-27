@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum TeamEnum { Neutral, Red, Blue, Yellow, Green, Env}
+public enum TeamEnum { Red, Blue, Yellow, Green, Neutral, Env, }
 
 public class Shape : MonoBehaviour
 {
@@ -39,8 +39,10 @@ public class Shape : MonoBehaviour
                 GetComponentInChildren<SpriteRenderer>().material.color = Color.green;
                 break;
 
-            case TeamEnum.Env:
+            /*case TeamEnum.Env:
                 GetComponentInChildren<SpriteRenderer>().material.color = Color.white;
+                break;*/
+            default:
                 break;
         }
         team = newState;
@@ -55,8 +57,10 @@ public class Shape : MonoBehaviour
         {
             return;
         }
+
         TeamEnum thisTeam = contact.thisCollider.gameObject.GetComponent<Shape>().team;
         TeamEnum otherTeam = contact.otherCollider.gameObject.GetComponent<Shape>().team;
+
         if (contact.otherCollider.gameObject.CompareTag("Player"))
         {
             if (thisTeam == TeamEnum.Neutral)
@@ -64,7 +68,7 @@ public class Shape : MonoBehaviour
                 Debug.Log("Col NeutralToPlayer");
                 CollisionNeutralToPlayer(contact.otherCollider);
             }
-            else if (thisTeam != otherTeam && contact.thisCollider.gameObject.tag != "Player")
+            else if (thisTeam != otherTeam && contact.thisCollider.gameObject.tag == "Shape")
             {
                 Debug.Log("Col EnnemieToPlayer");
                 DestroyBoth(contact);
@@ -77,15 +81,16 @@ public class Shape : MonoBehaviour
                 Debug.Log("Col NeutralToShape");
                 CollisionNeutralToShape(contact.otherCollider);
             }
+            else if (contact.thisCollider.gameObject.CompareTag("Cutter"))
+            {
+                Debug.Log("Col Cutter");
+                Cutted(contact);
+            }
             else if (thisTeam != TeamEnum.Neutral && otherTeam != thisTeam && otherTeam != TeamEnum.Neutral)
             {
                 Debug.Log("Col EnnemieToShape");
                 DestroyBoth(contact);
             }
-        }
-        else if (contact.otherCollider.gameObject.CompareTag("Cutter") && !contact.thisCollider.gameObject.CompareTag("Player"))
-        {
-            FreeChild(contact.thisCollider.transform);
         }
     }
 
@@ -104,6 +109,30 @@ public class Shape : MonoBehaviour
 
             }
         }
+    }
+    void Cutted(ContactPoint contact)
+    {
+        FreeOne(contact.otherCollider);
+        FreeChild(contact.otherCollider.transform);
+        contact.thisCollider.gameObject.GetComponent<Rigidbody>().AddExplosionForce(explosionForce, transform.position, explosionRadius);
+
+        Collider[] cols = Physics.OverlapSphere(contact.otherCollider.transform.position, explosionRadius);
+        foreach (Collider col in cols)
+        {
+            Rigidbody rb = col.GetComponentInParent<Rigidbody>();
+            if (rb != null && col.transform.parent == null && col.tag != "Player")
+            {
+                rb.AddExplosionForce(explosionForce, transform.position, explosionRadius);
+            }
+        }
+    }
+
+    void FreeOne(Collider other)
+    {
+        other.gameObject.GetComponent<Shape>().SwitchState(TeamEnum.Neutral);
+        other.gameObject.AddComponent<Rigidbody>();
+        other.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationX;
+        other.transform.SetParent(null, true);
     }
 
     void CollisionNeutralToShape(Collider other)
@@ -137,7 +166,7 @@ public class Shape : MonoBehaviour
     void CollisionNeutralToPlayer(Collider other)
     {
         SwitchState(other.gameObject.GetComponent<Avatar>().team);
-        this.transform.SetParent(other.gameObject.transform);
+        this.transform.SetParent(other.gameObject.transform, true);
         Destroy(this.GetComponent<Rigidbody>());
     }
 }
