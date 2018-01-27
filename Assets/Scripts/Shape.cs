@@ -67,10 +67,7 @@ public class Shape : MonoBehaviour
             else if (thisTeam != otherTeam && contact.thisCollider.gameObject.tag != "Player")
             {
                 Debug.Log("Col EnnemieToPlayer");
-                FreeChild(contact.otherCollider.transform);
-                Destroy(contact.otherCollider.gameObject);
-                FreeChild(contact.thisCollider.transform);
-                Destroy(contact.thisCollider.gameObject);
+                DestroyBoth(contact);
             }
         }
         else if (contact.otherCollider.gameObject.CompareTag("Shape") && contact.thisCollider.gameObject.tag != "Player")
@@ -83,15 +80,16 @@ public class Shape : MonoBehaviour
             else if (thisTeam != TeamEnum.Neutral && otherTeam != thisTeam && otherTeam != TeamEnum.Neutral)
             {
                 Debug.Log("Col EnnemieToShape");
-                FreeChild(contact.otherCollider.transform);
-                Destroy(contact.otherCollider.gameObject);
-                FreeChild(contact.thisCollider.transform);
-                Destroy(contact.thisCollider.gameObject);
+                DestroyBoth(contact);
             }
+        }
+        else if (contact.otherCollider.gameObject.CompareTag("Cutter") && !contact.thisCollider.gameObject.CompareTag("Player"))
+        {
+            FreeChild(contact.thisCollider.transform);
         }
     }
 
-    void FreeChild(Transform other)
+    protected void FreeChild(Transform other)
     {
         int children = other.childCount;
         for (int i = 0; i < children; ++i)
@@ -113,6 +111,14 @@ public class Shape : MonoBehaviour
         SwitchState(other.gameObject.GetComponent<Shape>().team);
         this.transform.SetParent(other.gameObject.transform);
         Destroy(this.GetComponent<Rigidbody>());
+    }
+
+    void DestroyBoth(ContactPoint contact)
+    {
+        FreeChild(contact.otherCollider.transform);
+        Destroy(contact.otherCollider.gameObject);
+        FreeChild(contact.thisCollider.transform);
+        Destroy(contact.thisCollider.gameObject);
     }
 
     void OnDestroy()

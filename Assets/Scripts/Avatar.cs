@@ -19,7 +19,13 @@ public class Avatar : Shape
     }
 
     void Update()
-    {
+    {   
+        if(transform.parent != null)
+        {
+            FreeChild(this.transform);
+            Destroy(this);
+        }
+
         Vector2 input = new Vector2(Input.GetAxis(playerType + "_Horizontal"), Input.GetAxis(playerType + "_Vertical"));
         if (input.x != 0.0f)
         {
