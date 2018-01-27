@@ -262,6 +262,7 @@ public class Shape : MonoBehaviour
 
     void PlayImpact()
     {
+        Debug.Log(this.name);
         audioSource.clip = pop[1];
         audioSource.Play();
     }
