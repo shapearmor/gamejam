@@ -16,6 +16,7 @@ public class GameMngr : MonoBehaviour
 
     [Header("UI parameters")]
     public Text winText;
+	public Text[] scoreBoard;
     public Color[] playerColors =
     {
         Color.red, Color.blue, Color.yellow, Color.green
@@ -26,31 +27,29 @@ public class GameMngr : MonoBehaviour
     private int actualNumberOfRounds = 0;
     private bool gameStarted = false;
 
-    void Start()
-    {
-		StartCoroutine(Init());
-    }
+    private int[] scores = {0,0,0,0};
 
-    private IEnumerator Init()
+    public IEnumerator Init()
     {
         AsyncOperation operation = SceneManager.LoadSceneAsync(2, LoadSceneMode.Additive);
-		while (operation.isDone == false)
-		{
-			yield return null;
-		}
-		SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(2));
+        while (operation.isDone == false)
+        {
+            yield return null;
+        }
+        SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(2));
         SetupGame();
     }
 
     private void SetupGame()
     {
+		UpdateScoreBoard();
         //Spawn all players
         for (int i = 0; i < numberOfPlayers; ++i)
         {
             GameObject player = Instantiate(playerPrefab, playersSpawns[i].position, Quaternion.identity);
             player.GetComponent<Avatar>().Setup((TeamEnum)i);
         }
-		StartCoroutine(GameIntro());
+        StartCoroutine(GameIntro());
     }
 
     private IEnumerator GameIntro()
@@ -68,13 +67,13 @@ public class GameMngr : MonoBehaviour
     {
         if (GetNumberOfPlayersAlive() == 1 && gameStarted)
         {
-			gameStarted = false;
+            gameStarted = false;
             Win();
             actualNumberOfRounds++;
             if (actualNumberOfRounds >= numberOfRound)
             {
                 //BackToMenu
-                SceneManager.LoadSceneAsync(0);
+                StartCoroutine(EndGame());
             }
             else
             {
@@ -88,22 +87,62 @@ public class GameMngr : MonoBehaviour
     {
         Avatar lastManStanding = FindObjectOfType<Avatar>();
         winText.text = GetRandomTauntMessage(lastManStanding.gameObject.name);
+		scores[(int)lastManStanding.team] ++;
         winText.color = playerColors[(int)lastManStanding.team];
     }
+
+	private void UpdateScoreBoard()
+	{
+		for (int i =0; i < scoreBoard.Length; ++i)
+		{
+			if (i < numberOfPlayers)
+			{
+				scoreBoard[i].text = scores[i].ToString();
+				scoreBoard[i].color = playerColors[i];
+			}
+			else
+			{
+				scoreBoard[i].text = System.String.Empty;
+			}
+		}
+	}
 
     private IEnumerator NextRoundTimer()
     {
         yield return new WaitForSeconds(5.0f);
         SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
-		int nextSceneIndex= GetNextSceneIndex();
+        int nextSceneIndex = GetNextSceneIndex();
         AsyncOperation operation = SceneManager.LoadSceneAsync(nextSceneIndex, LoadSceneMode.Additive);
         while (operation.isDone == false)
         {
             yield return null;
         }
         SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(nextSceneIndex));
-		SetupGame();
+        SetupGame();
     }
+
+	private IEnumerator EndGame()
+	{
+		winText.text = (TeamEnum)GetGameWinner() + " wins the game.";
+		winText.color = playerColors[GetGameWinner()];
+		yield return new WaitForSeconds(5.0f);
+		SceneManager.LoadSceneAsync(0);
+	}
+
+	private int GetGameWinner()
+	{
+		int maxScore = 0;
+		int index = 0;
+		for (int i = 0; i < scores.Length; ++i)
+		{
+			if (scores[i] > maxScore)
+			{
+				maxScore = scores[i];
+				index = i;
+			}
+		}
+		return index;
+	}
 
     private int GetNextSceneIndex()
     {
