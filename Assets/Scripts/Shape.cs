@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum TeamEnum { Neutral, Red, Blue, }
+public enum TeamEnum { Neutral, Red, Blue, Yellow, Green, Env}
 
 public class Shape : MonoBehaviour
 {
@@ -28,6 +28,18 @@ public class Shape : MonoBehaviour
                 break;
 
             case TeamEnum.Neutral:
+                GetComponentInChildren<SpriteRenderer>().material.color = Color.white;
+                break;
+
+            case TeamEnum.Yellow:
+                GetComponentInChildren<SpriteRenderer>().material.color = Color.yellow;
+                break;
+
+            case TeamEnum.Green:
+                GetComponentInChildren<SpriteRenderer>().material.color = Color.green;
+                break;
+
+            case TeamEnum.Env:
                 GetComponentInChildren<SpriteRenderer>().material.color = Color.white;
                 break;
         }
