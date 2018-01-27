@@ -17,6 +17,7 @@ public class Avatar : Shape
         // SwitchState(team);
         rigid = GetComponent<Rigidbody>();
         baseDrag = rigid.drag;
+        audioSource = gameObject.GetComponent<AudioSource>();
     }
 
     void Update()
@@ -75,10 +76,11 @@ public class Avatar : Shape
         playerType = "P" + ((int)setup + 1).ToString();
         gameObject.name = setup.ToString();
     }
-
 }
 
 public enum AvatarDisplacementMode
 {
     Local, Pivot
 }
+
+
