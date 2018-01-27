@@ -144,9 +144,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   explosionRadius: 15
   explosionForce: 300
-  team: 1
+  team: 0
+  wait: 0
   param: {fileID: 11400000, guid: b9b7a303b2384b14d8690e9addc7a01b, type: 2}
   playerType: P1
+  enabled: 0
 --- !u!135 &135212470170222388
 SphereCollider:
   m_ObjectHideFlags: 1

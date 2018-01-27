@@ -24,12 +24,23 @@ public class GameMngr : MonoBehaviour
     public string[] winMessages = { "name is unstoppable." };
 
     private int actualNumberOfRounds = 0;
-	private bool gameStarted = false;
+    private bool gameStarted = false;
 
-	void Start()
-	{
-		SetupGame();
-	}
+    void Start()
+    {
+		StartCoroutine(Init());
+    }
+
+    private IEnumerator Init()
+    {
+        AsyncOperation operation = SceneManager.LoadSceneAsync(2, LoadSceneMode.Additive);
+		while (operation.isDone == false)
+		{
+			yield return null;
+		}
+		SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(2));
+        SetupGame();
+    }
 
     private void SetupGame()
     {
@@ -39,35 +50,37 @@ public class GameMngr : MonoBehaviour
             GameObject player = Instantiate(playerPrefab, playersSpawns[i].position, Quaternion.identity);
             player.GetComponent<Avatar>().Setup((TeamEnum)i);
         }
+		StartCoroutine(GameIntro());
     }
 
-	private IEnumerator GameIntro()
-	{
-		yield return new WaitForSeconds(5.0f);
-		gameStarted = true;
-		Avatar[] players = FindObjectsOfType<Avatar>();
-		foreach(Avatar player in players)
-		{
-			player.enabled = true;
-		}
-	}
+    private IEnumerator GameIntro()
+    {
+        yield return new WaitForSeconds(5.0f);
+        gameStarted = true;
+        Avatar[] players = FindObjectsOfType<Avatar>();
+        foreach (Avatar player in players)
+        {
+            player.enabled = true;
+        }
+    }
 
     void Update()
     {
         if (GetNumberOfPlayersAlive() == 1 && gameStarted)
         {
+			gameStarted = false;
             Win();
             actualNumberOfRounds++;
-			if (actualNumberOfRounds >= numberOfRound)
-			{
-				//BackToMenu
-				SceneManager.LoadSceneAsync(0);
-			}
-			else
-			{
-				//LoadNextLevel
-				StartCoroutine(NextRoundTimer());
-			}
+            if (actualNumberOfRounds >= numberOfRound)
+            {
+                //BackToMenu
+                SceneManager.LoadSceneAsync(0);
+            }
+            else
+            {
+                //LoadNextLevel
+                StartCoroutine(NextRoundTimer());
+            }
         }
     }
 
@@ -82,12 +95,14 @@ public class GameMngr : MonoBehaviour
     {
         yield return new WaitForSeconds(5.0f);
         SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
-        AsyncOperation operation = SceneManager.LoadSceneAsync(GetNextSceneIndex(), LoadSceneMode.Additive);
-		while (operation.isDone == false)
-		{
-			yield return null;
-		}
-		Debug.Log("Active scene is now : " + SceneManager.GetActiveScene().name);
+		int nextSceneIndex= GetNextSceneIndex();
+        AsyncOperation operation = SceneManager.LoadSceneAsync(nextSceneIndex, LoadSceneMode.Additive);
+        while (operation.isDone == false)
+        {
+            yield return null;
+        }
+        SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(nextSceneIndex));
+		SetupGame();
     }
 
     private int GetNextSceneIndex()

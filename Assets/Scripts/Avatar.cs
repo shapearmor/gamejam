@@ -14,7 +14,7 @@ public class Avatar : Shape
     protected override void Start()
     {
         // base.Start();
-        SwitchState(team);
+        // SwitchState(team);
         rigid = GetComponent<Rigidbody>();
         baseDrag = rigid.drag;
     }
@@ -71,7 +71,7 @@ public class Avatar : Shape
 
     public void Setup(TeamEnum setup)
     {
-        SwitchState(team);
+        SwitchState(setup);
         playerType = "P" + ((int)setup + 1).ToString();
         gameObject.name = setup.ToString();
     }

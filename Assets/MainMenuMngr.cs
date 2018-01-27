@@ -8,6 +8,5 @@ public class MainMenuMngr : MonoBehaviour
 	public void Play()
 	{
 		SceneManager.LoadSceneAsync(1);
-		SceneManager.LoadSceneAsync(2, LoadSceneMode.Additive);
 	}
 }
