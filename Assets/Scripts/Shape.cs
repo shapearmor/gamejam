@@ -54,7 +54,6 @@ public class Shape : MonoBehaviour
     {
 
         ContactPoint contact = other.contacts[0];
-        Debug.Log("Hello " + contact.thisCollider + " | " + contact.otherCollider);
         if (contact.thisCollider.gameObject.GetComponent<Shape>() == null || contact.otherCollider.gameObject.GetComponent<Shape>() == null || wait == true)
         {
             return;
@@ -67,12 +66,10 @@ public class Shape : MonoBehaviour
         {
             if (thisTeam == TeamEnum.Neutral)
             {
-                Debug.Log("Col NeutralToPlayer");
                 CollisionNeutralToPlayer(contact.otherCollider);
             }
             else if (thisTeam != otherTeam && contact.thisCollider.gameObject.tag == "Shape")
             {
-                Debug.Log("Col EnnemieToPlayer");
                 DestroyBoth(contact);
             }
         }
@@ -80,17 +77,19 @@ public class Shape : MonoBehaviour
         {
             if (thisTeam == TeamEnum.Neutral && otherTeam != TeamEnum.Neutral)
             {
-                Debug.Log("Col NeutralToShape");
                 CollisionNeutralToShape(contact.otherCollider);
             }
             else if (contact.thisCollider.gameObject.CompareTag("Cutter"))
             {
-                Debug.Log("Col Cutter");
                 Cutted(contact);
+            }
+            else if (contact.thisCollider.gameObject.CompareTag("Bomb"))
+            {
+                Debug.Log("Hello " + contact.thisCollider + " | " + contact.otherCollider);
+                Boooom(contact);
             }
             else if (thisTeam != TeamEnum.Neutral && otherTeam != thisTeam && otherTeam != TeamEnum.Neutral)
             {
-                Debug.Log("Col EnnemieToShape");
                 DestroyBoth(contact);
             }
         }
@@ -133,6 +132,20 @@ public class Shape : MonoBehaviour
             if (rb != null && col.transform.parent == null && col.tag != "Player")
             {
                 rb.AddExplosionForce(explosionForce, transform.position, explosionRadius);
+            }
+        }
+    }
+
+    void Boooom(ContactPoint contact)
+    {
+        Collider[] cols = Physics.OverlapSphere(contact.thisCollider.transform.position, contact.thisCollider.gameObject.GetComponent<Bomb>().boomRadius);
+        foreach (Collider col in cols)
+        {
+            if (col.tag != "Player")
+            {
+                Debug.Log("Boom");
+                FreeChild(col.transform);
+                Destroy(col.gameObject);
             }
         }
     }
