@@ -12,8 +12,8 @@ public class Avatar : Shape
 
     protected override void Start()
     {
-        base.Start();
-
+        // base.Start();
+        SwitchState(team);
         rigid = GetComponent<Rigidbody>();
         baseDrag = rigid.drag;
     }
@@ -38,11 +38,13 @@ public class Avatar : Shape
 
     private void Rotate(float input)
     {
-        Quaternion rotation = transform.rotation;
-        Vector3 euler = rotation.eulerAngles;
-        euler.y += param.rotationSpeed * input * Time.deltaTime;
-        transform.rotation = Quaternion.Euler(euler);
-        Debug.Log("Rotation : " +  transform.rotation.eulerAngles);
+        // Quaternion rotation = transform.rotation;
+        // Vector3 euler = rotation.eulerAngles;
+        // euler.y += param.rotationSpeed * input * Time.deltaTime;
+        // transform.rotation = Quaternion.Euler(euler);
+        // Debug.Log("Rotation : " + transform.rotation.eulerAngles);
+
+        rigid.angularVelocity = new Vector3(0.0f, param.rotationSpeed * input * Time.deltaTime, 0.0f);
     }
 
     private void Thrust(float input)

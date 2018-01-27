@@ -10,7 +10,7 @@ public class Shape : MonoBehaviour
 
     protected virtual void Start()
     {
-        SwitchState(team);
+        SwitchState(TeamEnum.Neutral);
     }
 
     public void SwitchState(TeamEnum newState)
@@ -18,15 +18,15 @@ public class Shape : MonoBehaviour
         switch (newState)
         {
             case TeamEnum.Blue:
-                GetComponent<Renderer>().material.color = Color.blue;
+                GetComponentInChildren<SpriteRenderer>().material.color = Color.blue;
                 break;
 
             case TeamEnum.Red:
-                GetComponent<Renderer>().material.color = Color.red;
+                GetComponentInChildren<SpriteRenderer>().material.color = Color.red;
                 break;
 
             case TeamEnum.Neutral:
-                GetComponent<Renderer>().material.color = Color.white;
+                GetComponentInChildren<SpriteRenderer>().material.color = Color.white;
                 break;
         }
         team = newState;
@@ -43,7 +43,8 @@ public class Shape : MonoBehaviour
         }
         TeamEnum thisTeam = contact.thisCollider.gameObject.GetComponent<Shape>().team;
         TeamEnum otherTeam = contact.otherCollider.gameObject.GetComponent<Shape>().team;
-        if (contact.otherCollider.gameObject.CompareTag("Player")) {
+        if (contact.otherCollider.gameObject.CompareTag("Player"))
+        {
             if (thisTeam == TeamEnum.Neutral)
             {
                 Debug.Log("Col NeutralToPlayer");
@@ -65,7 +66,7 @@ public class Shape : MonoBehaviour
                 Debug.Log("Col NeutralToShape");
                 CollisionNeutralToShape(contact.otherCollider);
             }
-            else if (thisTeam != TeamEnum.Neutral && otherTeam != thisTeam)
+            else if (thisTeam != TeamEnum.Neutral && otherTeam != thisTeam && otherTeam != TeamEnum.Neutral)
             {
                 Debug.Log("Col EnnemieToShape");
                 FreeChild(contact.otherCollider.transform);
