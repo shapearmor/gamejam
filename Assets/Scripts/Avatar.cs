@@ -25,6 +25,8 @@ public class Avatar : Shape
     {
         base.Update();
 
+        rigid.ResetCenterOfMass();
+
         if (!enabled) return;
 
         if (transform.parent != null)
