@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GamepadInput;
 
 public class Avatar : Shape
 {
@@ -15,7 +16,7 @@ public class Avatar : Shape
     {
         // base.Start();
         // SwitchState(team);
-        
+
         rigid = GetComponent<Rigidbody>();
         baseDrag = rigid.drag;
         audioSource = gameObject.GetComponent<AudioSource>();
@@ -35,7 +36,8 @@ public class Avatar : Shape
             Destroy(this);
         }
 
-        Vector2 input = new Vector2(Input.GetAxis(playerType + "_Horizontal"), Input.GetAxis(playerType + "_Vertical"));
+        // Vector2 input = new Vector2(Input.GetAxis(playerType + "_Horizontal"), Input.GetAxis(playerType + "_Vertical"));
+        Vector2 input = GetInput();
         if (input.x != 0.0f)
         {
             Rotate(input.x);
@@ -49,6 +51,18 @@ public class Avatar : Shape
         {
             rigid.drag = baseDrag;
         }
+    }
+
+    private Vector2 GetInput()
+    {
+        GamePad.Index index = (GamePad.Index)((int)(team + 1));
+        Vector2 leftStick = GamePad.GetAxis(GamePad.Axis.LeftStick, index);
+        bool thrust = GamePad.GetButton(GamePad.Button.A, index);
+        bool brake = GamePad.GetButton(GamePad.Button.B, index);
+        float y = 0.0f;
+        if (brake) y = -1.0f;
+        else if (thrust) y = 1.0f;
+        return new Vector2(leftStick.x, y);
     }
 
     protected override void SwitchState(TeamEnum newState)
