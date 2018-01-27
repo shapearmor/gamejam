@@ -224,6 +224,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pop:
   - {fileID: 8300000, guid: 904f6467a51c85544a515f5859847057, type: 3}
+  - {fileID: 8300000, guid: a8ecfe4ed01f3ab41b59003cf2804c63, type: 3}
   skin:
   - {fileID: 21300000, guid: 053405861925a664c84f3eb85d9c9558, type: 3}
   - {fileID: 21300000, guid: 167b09e0aa244eb49a15ac528a0f22a4, type: 3}

@@ -112,10 +112,12 @@ public class Shape : MonoBehaviour
             {
                 Debug.Log("Hello " + contact.thisCollider + " | " + contact.otherCollider);
                 Boooom(contact);
+                PlayBomb();
             }
             else if (thisTeam != TeamEnum.Neutral && otherTeam != thisTeam && otherTeam != TeamEnum.Neutral)
             {
                 DestroyBoth(contact);
+                PlayImpact();
             }
         }
     }
@@ -234,8 +236,13 @@ public class Shape : MonoBehaviour
     {
         if(tag == "Shape")
         {
-            int index = Random.Range(0, pop.Length - 1);
-            audioSource.clip = pop[index];
+            audioSource.clip = pop[0];
+            audioSource.pitch = gameObject.GetComponentInParent<Avatar>().pitchLevel;
+            if (gameObject.GetComponentInParent<Avatar>() != null)
+            {
+                if (gameObject.GetComponentInParent<Avatar>().pitchLevel <= 2.8)
+                    gameObject.GetComponentInParent<Avatar>().pitchLevel += 0.2f;
+            }
             audioSource.Play();
         }
     }
@@ -243,13 +250,19 @@ public class Shape : MonoBehaviour
     void PlayDeath()
     {
         audioSource.clip = pop[0];
-        audioSource.pitch = gameObject.GetComponentInParent<Avatar>().pitchLevel;
-        if (gameObject.GetComponentInParent<Avatar>() != null)
-        {
-            if (gameObject.GetComponentInParent<Avatar>().pitchLevel <= 2.8)
-                gameObject.GetComponentInParent<Avatar>().pitchLevel += 0.2f;
-        }
         audioSource.Play();
         //System.Threading.Thread.Sleep(2000);
+    }
+
+    void PlayBomb()
+    {
+        audioSource.clip = pop[0];
+        audioSource.Play();
+    }
+
+    void PlayImpact()
+    {
+        audioSource.clip = pop[1];
+        audioSource.Play();
     }
 }

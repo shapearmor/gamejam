@@ -9,6 +9,7 @@ public class Bomb : Shape
     {
         // base.Start();
         SwitchState(team);
+        audioSource = gameObject.GetComponent<AudioSource>();
     }
 
 }
