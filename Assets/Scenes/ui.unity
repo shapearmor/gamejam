@@ -734,7 +734,7 @@ MonoBehaviour:
   - {fileID: 146726635}
   levelsToLoad:
     a: 2
-    b: 4
+    b: 5
   playerPrefab: {fileID: 1607334806483024, guid: bb4c6ba697224964bba4e5ccfc7b2a0c,
     type: 2}
   winText: {fileID: 1782526726}
@@ -751,6 +751,16 @@ MonoBehaviour:
   - {r: 0, g: 1, b: 0, a: 1}
   winMessages:
   - name is unstoppable.
+  - name is doing your mother.
+  - name is a legend.
+  - Looks like name is playing this game alone.
+  - name has no time for your shit
+  - Someone has to bring name a beer.
+  - name is a tiger.
+  - I bet on name since the beginning.
+  - Yes, name, indeed.
+  - It's just a warm up for name.
+  - nameinator
 --- !u!4 &1345933240
 Transform:
   m_ObjectHideFlags: 0

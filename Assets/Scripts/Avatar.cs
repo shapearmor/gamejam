@@ -35,7 +35,7 @@ public class Avatar : Shape
         if (transform.parent != null)
         {
             FreeChild(this.transform);
-            Destroy(this);
+            Destroy(this.gameObject);
         }
 
         // Vector2 input = new Vector2(Input.GetAxis(playerType + "_Horizontal"), Input.GetAxis(playerType + "_Vertical"));
@@ -57,14 +57,44 @@ public class Avatar : Shape
 
     private Vector2 GetInput()
     {
-        GamePad.Index index = (GamePad.Index)((int)(team + 1));
-        Vector2 leftStick = GamePad.GetAxis(GamePad.Axis.LeftStick, index);
-        bool thrust = GamePad.GetButton(GamePad.Button.A, index);
-        bool brake = GamePad.GetButton(GamePad.Button.B, index);
-        float y = 0.0f;
-        if (brake) y = -1.0f;
-        else if (thrust) y = 1.0f;
-        return new Vector2(leftStick.x, y);
+        if (IsGamePadAvailable())
+        {
+            GamePad.Index index = (GamePad.Index)((int)(team + 1));
+            Debug.Log("Gamepad ! " + index);
+            Vector2 leftStick = GamePad.GetAxis(GamePad.Axis.LeftStick, index);
+            bool thrust = GamePad.GetButton(GamePad.Button.A, index);
+            bool brake = GamePad.GetButton(GamePad.Button.B, index);
+            float y = 0.0f;
+            if (brake) y = -1.0f;
+            else if (thrust) y = 1.0f;
+            return new Vector2(leftStick.x, y);
+        }
+        else
+        {
+            int inputIndex = Mathf.Abs((int)team - Input.GetJoystickNames().Length) + 1;
+            Debug.Log("Keyboard ! " + inputIndex);            
+            float x = Input.GetAxis("Horizontal_" + inputIndex);
+            float y = Input.GetAxis("Vertical_" + inputIndex);
+            return new Vector2(x, y);
+        }
+    }
+
+    private bool IsGamePadAvailable()
+    {
+        int numberOfGamepad = Input.GetJoystickNames().Length;
+        string[] joysticks = Input.GetJoystickNames();
+        foreach(string str in joysticks)
+        {
+            Debug.Log(str);
+        }
+        if (numberOfGamepad > (int)team)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     protected override void SwitchState(TeamEnum newState)
