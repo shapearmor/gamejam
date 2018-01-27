@@ -86,6 +86,7 @@ public class Shape : MonoBehaviour
                 FreeChild(other.GetChild(i));
                 other.GetChild(i).gameObject.GetComponent<Shape>().SwitchState(TeamEnum.Neutral);
                 other.GetChild(i).gameObject.AddComponent<Rigidbody>();
+                other.GetChild(i).gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationX;
                 other.GetChild(i).SetParent(null, true);
 
             }
