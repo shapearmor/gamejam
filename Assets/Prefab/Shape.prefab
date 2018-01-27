@@ -234,7 +234,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 167b09e0aa244eb49a15ac528a0f22a4, type: 3}
   - {fileID: 21300000, guid: 7fc8f9850f6edd542815a7bd14a5c972, type: 3}
   - {fileID: 21300000, guid: e7d4850e30e679748ab9e0f8264a5fab, type: 3}
-  - {fileID: 21300000, guid: 741e584a6642e63448ab8419f5dc4d51, type: 3}
+  - {fileID: 21300000, guid: 17f00f21fc0bd514d9c83a9419d96845, type: 3}
   explosionRadius: 8
   explosionForce: 15
   team: 0
