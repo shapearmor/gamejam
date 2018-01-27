@@ -23,7 +23,13 @@ public class Shape : MonoBehaviour
 
     protected virtual void Update()
     {
-        transform.localEulerAngles.Set(0, 0, 0);
+        if (transform.rotation.eulerAngles.x != 0.0f || transform.rotation.eulerAngles.z != 0.0f)
+        {
+            Vector3 euler = transform.rotation.eulerAngles;
+            euler.x = 0.0f;
+            euler.z = 0.0f;
+            transform.rotation = Quaternion.Euler(euler);
+        }
     }
 
     public void SwitchState(TeamEnum newState)

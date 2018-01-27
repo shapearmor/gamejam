@@ -22,6 +22,8 @@ public class Avatar : Shape
 
     protected override void Update()
     {
+        base.Update();
+
         if (!enabled) return;
 
         if (transform.parent != null)
