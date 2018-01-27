@@ -42,6 +42,7 @@ public class Avatar : Shape
         Vector3 euler = rotation.eulerAngles;
         euler.y += param.rotationSpeed * input * Time.deltaTime;
         transform.rotation = Quaternion.Euler(euler);
+        Debug.Log("Rotation : " +  transform.rotation.eulerAngles);
     }
 
     private void Thrust(float input)

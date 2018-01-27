@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 54736014966503592}
   - component: {fileID: 135212470170222388}
   - component: {fileID: 114160360132617540}
+  - component: {fileID: 135473589893989762}
   m_Layer: 0
   m_Name: Avatar
   m_TagString: Player
@@ -94,7 +95,7 @@ Rigidbody:
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0.5
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0.5
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -111,9 +112,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 488b82fe03a5b624bbf00dd3f0496daf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  team: 2
+  team: 1
   param: {fileID: 11400000, guid: b9b7a303b2384b14d8690e9addc7a01b, type: 2}
-  playerType: P2
+  playerType: P1
 --- !u!135 &135212470170222388
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -126,3 +127,15 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.44
   m_Center: {x: 0, y: 0, z: -0.0026498735}
+--- !u!135 &135473589893989762
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1607334806483024}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 3.29
+  m_Center: {x: 0, y: 0.000000014901161, z: 0.08504443}
