@@ -20,6 +20,7 @@ public class Spawner : MonoBehaviour
 	private IEnumerator InitialTimer()
 	{
 		yield return new WaitForSeconds(initialTimerDuration);
+        Spawn();
 		canSpawn = true;
 	}
 
