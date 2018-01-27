@@ -6,6 +6,7 @@ public class Avatar : Shape
 {
     public AvatarParameters param;
     public string playerType = "P1";
+    public bool enabled = false;
 
     private Rigidbody rigid;
     private float baseDrag;
@@ -19,8 +20,10 @@ public class Avatar : Shape
     }
 
     void Update()
-    {   
-        if(transform.parent != null)
+    {
+        if (!enabled) return;
+
+        if (transform.parent != null)
         {
             FreeChild(this.transform);
             Destroy(this);
@@ -66,4 +69,16 @@ public class Avatar : Shape
         }
     }
 
+    public void Setup(TeamEnum setup)
+    {
+        SwitchState(team);
+        playerType = "P" + ((int)setup + 1).ToString();
+        gameObject.name = setup.ToString();
+    }
+
+}
+
+public enum AvatarDisplacementMode
+{
+    Local, Pivot
 }

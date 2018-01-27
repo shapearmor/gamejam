@@ -68,7 +68,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1607334806483024}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 11.61, y: 0, z: 3.42}
+  m_LocalPosition: {x: -1.91, y: 0, z: -4.23}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4941301269051534}
@@ -144,9 +144,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   explosionRadius: 15
   explosionForce: 300
-  team: 2
+  team: 1
   param: {fileID: 11400000, guid: b9b7a303b2384b14d8690e9addc7a01b, type: 2}
-  playerType: P2
+  playerType: P1
 --- !u!135 &135212470170222388
 SphereCollider:
   m_ObjectHideFlags: 1
