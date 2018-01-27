@@ -6,6 +6,9 @@ public enum TeamEnum { Red, Blue, Yellow, Green, Neutral, Env, }
 
 public class Shape : MonoBehaviour
 {
+    protected AudioSource audioSource;
+    public AudioClip[] pop;
+
     public float explosionRadius = 5.0f;
     public float explosionForce = 400.0f;
     public TeamEnum team = TeamEnum.Neutral;
@@ -15,6 +18,18 @@ public class Shape : MonoBehaviour
     protected virtual void Start()
     {
         SwitchState(TeamEnum.Neutral);
+        audioSource = gameObject.GetComponent<AudioSource>();
+    }
+
+    protected virtual void Update()
+    {
+        if (transform.rotation.eulerAngles.x != 0.0f || transform.rotation.eulerAngles.z != 0.0f)
+        {
+            Vector3 euler = transform.rotation.eulerAngles;
+            euler.x = 0.0f;
+            euler.z = 0.0f;
+            transform.rotation = Quaternion.Euler(euler);
+        }
     }
 
     public void SwitchState(TeamEnum newState)
@@ -67,9 +82,11 @@ public class Shape : MonoBehaviour
             if (thisTeam == TeamEnum.Neutral)
             {
                 CollisionNeutralToPlayer(contact.otherCollider);
+                PlayPop();
             }
             else if (thisTeam != otherTeam && contact.thisCollider.gameObject.tag == "Shape")
             {
+                PlayDeath();
                 DestroyBoth(contact);
             }
         }
@@ -78,10 +95,12 @@ public class Shape : MonoBehaviour
             if (thisTeam == TeamEnum.Neutral && otherTeam != TeamEnum.Neutral)
             {
                 CollisionNeutralToShape(contact.otherCollider);
+                PlayPop();
             }
             else if (contact.thisCollider.gameObject.CompareTag("Cutter"))
             {
                 Cutted(contact);
+                PlayPop();
             }
             else if (contact.thisCollider.gameObject.CompareTag("Bomb"))
             {
@@ -193,5 +212,22 @@ public class Shape : MonoBehaviour
         SwitchState(other.gameObject.GetComponent<Avatar>().team);
         this.transform.SetParent(other.gameObject.transform, true);
         Destroy(this.GetComponent<Rigidbody>());
+    }
+
+    void PlayPop()
+    {
+        if(tag == "Shape")
+        {
+            int index = Random.Range(0, pop.Length - 1);
+            audioSource.clip = pop[index];
+            audioSource.Play();
+        }
+    }
+
+    void PlayDeath()
+    {
+        audioSource.clip = pop[0];
+        audioSource.Play();
+        //System.Threading.Thread.Sleep(2000);
     }
 }

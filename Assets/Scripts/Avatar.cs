@@ -17,10 +17,13 @@ public class Avatar : Shape
         // SwitchState(team);
         rigid = GetComponent<Rigidbody>();
         baseDrag = rigid.drag;
+        audioSource = gameObject.GetComponent<AudioSource>();
     }
 
-    void Update()
+    protected override void Update()
     {
+        base.Update();
+
         if (!enabled) return;
 
         if (transform.parent != null)
@@ -75,10 +78,11 @@ public class Avatar : Shape
         playerType = "P" + ((int)setup + 1).ToString();
         gameObject.name = setup.ToString();
     }
-
 }
 
 public enum AvatarDisplacementMode
 {
     Local, Pivot
 }
+
+
