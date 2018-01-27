@@ -21,6 +21,13 @@ public class Shape : MonoBehaviour
         audioSource = gameObject.GetComponent<AudioSource>();
     }
 
+    protected virtual void Update()
+    {
+        if (transform.localEulerAngles.x != 0) transform.localEulerAngles.Set(0, 0, 0);
+        if (transform.localEulerAngles.y != 0) transform.localEulerAngles.Set(0, 0, 0);
+        if (transform.localEulerAngles.z != 0) transform.localEulerAngles.Set(0, 0, 0);
+    }
+
     public void SwitchState(TeamEnum newState)
     {
         switch (newState)

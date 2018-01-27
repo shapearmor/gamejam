@@ -20,7 +20,7 @@ public class Avatar : Shape
         audioSource = gameObject.GetComponent<AudioSource>();
     }
 
-    void Update()
+    protected override void Update()
     {
         if (!enabled) return;
 
