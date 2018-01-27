@@ -5,19 +5,22 @@ using UnityEngine;
 public class Avatar : Shape
 {
     public AvatarParameters param;
+    public string playerType = "P1";
 
     private Rigidbody rigid;
-	private float baseDrag;
+    private float baseDrag;
 
-    void Start()
+    protected override void Start()
     {
+        base.Start();
+
         rigid = GetComponent<Rigidbody>();
-		baseDrag = rigid.drag;
+        baseDrag = rigid.drag;
     }
 
     void Update()
     {
-        Vector2 input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        Vector2 input = new Vector2(Input.GetAxis(playerType + "_Horizontal"), Input.GetAxis(playerType + "_Vertical"));
         if (input.x != 0.0f)
         {
             Rotate(input.x);
@@ -27,10 +30,10 @@ public class Avatar : Shape
         {
             Thrust(input.y);
         }
-		else
-		{
-			rigid.drag = baseDrag;
-		}
+        else
+        {
+            rigid.drag = baseDrag;
+        }
     }
 
     private void Rotate(float input)
@@ -48,10 +51,10 @@ public class Avatar : Shape
             rigid.AddForce(transform.forward * param.thrustPower * Time.deltaTime);
             // rigid.AddForceAtPosition(transform.forward * param.thrustPower * Time.deltaTime, transform.position, ForceMode.Force);
         }
-		else
-		{
-			rigid.drag = param.brakeForce;
-		}
+        else
+        {
+            rigid.drag = param.brakeForce;
+        }
     }
 
 }
