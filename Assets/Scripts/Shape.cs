@@ -9,6 +9,9 @@ public class Shape : MonoBehaviour
     protected AudioSource audioSource;
     public AudioClip[] pop;
 
+    protected SpriteRenderer spriteRenderer;
+    public Sprite[] skin;
+
     public float explosionRadius = 5.0f;
     public float explosionForce = 400.0f;
     public TeamEnum team = TeamEnum.Neutral;
@@ -17,8 +20,9 @@ public class Shape : MonoBehaviour
 
     protected virtual void Start()
     {
+        spriteRenderer = gameObject.GetComponentInChildren<SpriteRenderer>();
         SwitchState(TeamEnum.Neutral);
-        audioSource = gameObject.GetComponent<AudioSource>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     protected virtual void Update()
@@ -32,33 +36,29 @@ public class Shape : MonoBehaviour
         }
     }
 
-    public void SwitchState(TeamEnum newState)
+    protected virtual void SwitchState(TeamEnum newState)
     {
         switch (newState)
         {
             case TeamEnum.Blue:
-                GetComponentInChildren<SpriteRenderer>().material.color = Color.blue;
+                spriteRenderer.sprite = skin[1];
                 break;
 
             case TeamEnum.Red:
-                GetComponentInChildren<SpriteRenderer>().material.color = Color.red;
+                spriteRenderer.sprite = skin[0];
                 break;
 
             case TeamEnum.Neutral:
-                GetComponentInChildren<SpriteRenderer>().material.color = Color.white;
+                spriteRenderer.sprite = skin[4];
                 break;
 
             case TeamEnum.Yellow:
-                GetComponentInChildren<SpriteRenderer>().material.color = Color.yellow;
+                spriteRenderer.sprite = skin[2];
                 break;
 
             case TeamEnum.Green:
-                GetComponentInChildren<SpriteRenderer>().material.color = Color.green;
+                spriteRenderer.sprite = skin[3];
                 break;
-
-            /*case TeamEnum.Env:
-                GetComponentInChildren<SpriteRenderer>().material.color = Color.white;
-                break;*/
             default:
                 break;
         }

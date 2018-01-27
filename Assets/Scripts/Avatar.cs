@@ -15,6 +15,7 @@ public class Avatar : Shape
     {
         // base.Start();
         // SwitchState(team);
+        
         rigid = GetComponent<Rigidbody>();
         baseDrag = rigid.drag;
         audioSource = gameObject.GetComponent<AudioSource>();
@@ -48,6 +49,31 @@ public class Avatar : Shape
         }
     }
 
+    protected override void SwitchState(TeamEnum newState)
+    {
+        switch (newState)
+        {
+            case TeamEnum.Blue:
+                spriteRenderer.sprite = skin[1];
+                break;
+
+            case TeamEnum.Red:
+                spriteRenderer.sprite = skin[0];
+                break;
+
+            case TeamEnum.Yellow:
+                spriteRenderer.sprite = skin[2];
+                break;
+
+            case TeamEnum.Green:
+                spriteRenderer.sprite = skin[3];
+                break;
+            default:
+                break;
+        }
+        team = newState;
+    }
+
     private void Rotate(float input)
     {
         // Quaternion rotation = transform.rotation;
@@ -74,6 +100,7 @@ public class Avatar : Shape
 
     public void Setup(TeamEnum setup)
     {
+        spriteRenderer = gameObject.GetComponentInChildren<SpriteRenderer>();
         SwitchState(setup);
         playerType = "P" + ((int)setup + 1).ToString();
         gameObject.name = setup.ToString();
