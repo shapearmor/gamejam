@@ -41,27 +41,32 @@ public class Shape : MonoBehaviour
             {
                 CollisionNeutralToPlayer(other);
             }
-            else if (team != other.collider.gameObject.GetComponent<Avatar>().team)
+            else if (team != other.collider.gameObject.GetComponent<Avatar>().team && this.gameObject.tag != "Player")
             {
                 FreeChild(other.collider.transform);
                 Destroy(other.collider.gameObject);
                 Destroy(this.gameObject);
             }
-
         }
-        else if (other.collider.gameObject.CompareTag("Shape") && this.gameObject.name != "Avatar")
+        else if (other.collider.gameObject.CompareTag("Shape"))
         {
             Shape otherShape = other.collider.gameObject.GetComponent<Shape>();
-            if (team == TeamEnum.Neutral && otherShape.team != TeamEnum.Neutral)
+            if (team == TeamEnum.Neutral && otherShape.team != TeamEnum.Neutral && this.gameObject.tag != "Player")
             {
                 CollisionNeutralToShape(other);
             }
-            else if (team != TeamEnum.Neutral && otherShape.team != team)
+            else if (team != TeamEnum.Neutral && otherShape.team != team && this.gameObject.tag != "Player")
             {
-                Debug.Log("Collision " + this.gameObject.name + " with " + other.collider.gameObject.name);
+                FreeChild(other.collider.transform);
                 Destroy(other.collider.gameObject);
+                FreeChild(this.transform);
                 Destroy(this.gameObject);
             }
+            /*else if (this.gameObject.tag == "Player" && team != otherShape.team)
+            {
+                FreeChild(this.transform);
+                Destroy(this.gameObject);
+            }*/
         }
     }
 
@@ -74,7 +79,8 @@ public class Shape : MonoBehaviour
             {
                 FreeChild(other.GetChild(i));
                 other.GetChild(i).gameObject.GetComponent<Shape>().SwitchState(TeamEnum.Neutral);
-                other.GetChild(i).gameObject.AddComponent<Rigidbody>();
+                //other.GetChild(i).gameObject.AddComponent<Rigidbody>();
+                other.GetChild(i).gameObject.GetComponent<Rigidbody>().isKinematic = false;
                 other.GetChild(i).SetParent(null, true);
 
             }
@@ -85,14 +91,16 @@ public class Shape : MonoBehaviour
     {
         SwitchState(other.gameObject.GetComponent<Shape>().team);
         this.transform.SetParent(other.collider.gameObject.transform);
-        Destroy(this.GetComponent<Rigidbody>());
+        //Destroy(this.GetComponent<Rigidbody>());
+        this.GetComponent<Rigidbody>().isKinematic = true;
     }
 
     void CollisionNeutralToPlayer(Collision other)
     {
         SwitchState(other.gameObject.GetComponent<Avatar>().team);
         this.transform.SetParent(other.collider.gameObject.transform, true);
-        Destroy(this.GetComponent<Rigidbody>());
+        //Destroy(this.GetComponent<Rigidbody>());
+        this.GetComponent<Rigidbody>().isKinematic = true;
     }
 
     void DestroyGameObject(GameObject otherObject)
