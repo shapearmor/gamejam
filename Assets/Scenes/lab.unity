@@ -152,6 +152,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 114972499902229004, guid: 79b7416254be6d64b9b5ec751920ff25,
+        type: 2}
+      propertyPath: team
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 79b7416254be6d64b9b5ec751920ff25, type: 2}
   m_IsPrefabParent: 0
@@ -257,7 +262,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1556510628523598, guid: fe403dab60fb2d740b56b398898b5bc1, type: 2}
       propertyPath: m_TagString
-      value: Untagged
+      value: Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fe403dab60fb2d740b56b398898b5bc1, type: 2}
@@ -450,6 +455,11 @@ Prefab:
     - target: {fileID: 1797610078507712, guid: 79b7416254be6d64b9b5ec751920ff25, type: 2}
       propertyPath: m_Name
       value: Shape (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 114972499902229004, guid: 79b7416254be6d64b9b5ec751920ff25,
+        type: 2}
+      propertyPath: team
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 79b7416254be6d64b9b5ec751920ff25, type: 2}
