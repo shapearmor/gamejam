@@ -141,8 +141,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb81957f7328e734f8c875768c6e918c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explosionRadius: 10
-  explosionForce: 25
+  explosionRadius: 8
+  explosionForce: 15
   team: 0
 --- !u!135 &135297541922572550
 SphereCollider:
@@ -190,7 +190,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 741e584a6642e63448ab8419f5dc4d51, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 17f00f21fc0bd514d9c83a9419d96845, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
