@@ -10,6 +10,8 @@ public class Shape : MonoBehaviour
     public float explosionForce = 400.0f;
     public TeamEnum team = TeamEnum.Neutral;
 
+    public bool wait = false;
+
     protected virtual void Start()
     {
         SwitchState(TeamEnum.Neutral);
@@ -53,7 +55,7 @@ public class Shape : MonoBehaviour
 
         ContactPoint contact = other.contacts[0];
         Debug.Log("Hello " + contact.thisCollider + " | " + contact.otherCollider);
-        if (contact.thisCollider.gameObject.GetComponent<Shape>() == null || contact.otherCollider.gameObject.GetComponent<Shape>() == null)
+        if (contact.thisCollider.gameObject.GetComponent<Shape>() == null || contact.otherCollider.gameObject.GetComponent<Shape>() == null || wait == true)
         {
             return;
         }
@@ -105,15 +107,23 @@ public class Shape : MonoBehaviour
                 other.GetChild(i).gameObject.GetComponent<Shape>().SwitchState(TeamEnum.Neutral);
                 other.GetChild(i).gameObject.AddComponent<Rigidbody>();
                 other.GetChild(i).gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationX;
+                other.GetChild(i).gameObject.GetComponent<Shape>().wait = true;
+                other.GetChild(i).gameObject.GetComponent<Shape>().StartCoroutine("IsWaiting");
                 other.GetChild(i).SetParent(null, true);
-
             }
         }
     }
+
+    public IEnumerator IsWaiting()
+    {
+        yield return new WaitForSeconds(0.8f);
+        wait = false;
+    }
+
     void Cutted(ContactPoint contact)
     {
-        FreeOne(contact.otherCollider);
         FreeChild(contact.otherCollider.transform);
+        FreeOne(contact.otherCollider);
         contact.thisCollider.gameObject.GetComponent<Rigidbody>().AddExplosionForce(explosionForce, transform.position, explosionRadius);
 
         Collider[] cols = Physics.OverlapSphere(contact.otherCollider.transform.position, explosionRadius);
@@ -133,6 +143,8 @@ public class Shape : MonoBehaviour
         other.gameObject.AddComponent<Rigidbody>();
         other.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationX;
         other.transform.SetParent(null, true);
+        other.gameObject.GetComponent<Shape>().wait = true;
+        other.gameObject.GetComponent<Shape>().StartCoroutine("IsWaiting");
     }
 
     void CollisionNeutralToShape(Collider other)
