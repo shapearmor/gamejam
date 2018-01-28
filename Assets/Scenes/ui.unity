@@ -773,8 +773,8 @@ MonoBehaviour:
   scoreBoard:
   - {fileID: 2689190}
   - {fileID: 1506062170}
-  - {fileID: 1586214151}
   - {fileID: 813943312}
+  - {fileID: 1586214151}
   playerColors:
   - {r: 1, g: 0.066176474, b: 0.20141968, a: 1}
   - {r: 0.115051895, g: 0.22812004, b: 0.97794116, a: 1}
