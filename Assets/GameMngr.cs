@@ -5,7 +5,11 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class GameMngr : MonoBehaviour
-{
+{   
+    [Header("Sound parameters")]
+    protected AudioSource audioSource;
+    public AudioClip[] pop;
+
     [Header("Game parameters")]
     [Range(2, 4)]
     public int numberOfPlayers;
@@ -39,6 +43,8 @@ public class GameMngr : MonoBehaviour
         }
         SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(2));
         SetupGame();
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void SetupGame()
@@ -165,6 +171,17 @@ public class GameMngr : MonoBehaviour
         return FindObjectsOfType<Avatar>().Length;
     }
 
+    public void PlayBomb()
+    {
+        audioSource.clip = pop[0];
+        audioSource.Play();
+    }
+
+    public void PlayCut()
+    {
+        audioSource.clip = pop[1];
+        audioSource.Play();
+    }
 }
 
 [System.Serializable]
@@ -179,3 +196,4 @@ public struct IntRange
         this.b = b;
     }
 }
+
