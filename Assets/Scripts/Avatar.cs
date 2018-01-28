@@ -13,6 +13,7 @@ public class Avatar : Shape
     private float baseDrag;
 
     public float pitchLevel = 1.4f;
+    public GameObject prefab;
 
     [Header("Animation Parameters")]
     public AnimationCurve speedEvolution;
@@ -171,6 +172,12 @@ public class Avatar : Shape
         SwitchState(setup);
         playerType = "P" + ((int)setup + 1).ToString();
         gameObject.name = setup.ToString();
+    }
+
+    protected override void OnDestroy()
+    {
+        Instantiate(prefab, this.transform.position, this.transform.rotation);
+        base.OnDestroy();
     }
 }
 

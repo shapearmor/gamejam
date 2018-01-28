@@ -258,6 +258,7 @@ MonoBehaviour:
   playerType: P1
   enabled: 0
   pitchLevel: 1
+  prefab: {fileID: 1142325702530128, guid: 5118c1e94479af047af95ccef6d9f157, type: 2}
   speedEvolution:
     serializedVersion: 2
     m_Curve:
