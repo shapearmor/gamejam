@@ -242,8 +242,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pop:
-  - {fileID: 8300000, guid: 024eb852443fe5440a83e44fc49fbb2e, type: 3}
+  - {fileID: 8300000, guid: dd5965cb7b8ecd948912f65a56d5760c, type: 3}
   - {fileID: 8300000, guid: a8ecfe4ed01f3ab41b59003cf2804c63, type: 3}
+  - {fileID: 8300000, guid: a97715c13684dfa429a0ac2144d70f7c, type: 3}
   skin:
   - {fileID: 21300000, guid: e0743bb57a446af43bc053ad7b280a1e, type: 3}
   - {fileID: 21300000, guid: 9b24641e9fb047a458ec37d76cd47c97, type: 3}
@@ -256,7 +257,7 @@ MonoBehaviour:
   param: {fileID: 11400000, guid: b9b7a303b2384b14d8690e9addc7a01b, type: 2}
   playerType: P1
   enabled: 0
-  pitchLevel: 0
+  pitchLevel: 1
 --- !u!135 &135212470170222388
 SphereCollider:
   m_ObjectHideFlags: 1
