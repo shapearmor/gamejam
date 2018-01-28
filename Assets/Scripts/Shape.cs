@@ -110,7 +110,6 @@ public class Shape : MonoBehaviour
             }
             else if (contact.thisCollider.gameObject.CompareTag("Bomb"))
             {
-                Debug.Log("Hello " + contact.thisCollider + " | " + contact.otherCollider);
                 Boooom(contact);
                 PlayBomb();
             }
@@ -133,7 +132,7 @@ public class Shape : MonoBehaviour
                 if (other.gameObject.GetComponentInParent<Avatar>() != null)
                 {
                     if (other.gameObject.GetComponentInParent<Avatar>().pitchLevel > 0.2)
-                        other.gameObject.GetComponentInParent<Avatar>().pitchLevel -= 0.2f;
+                        other.gameObject.GetComponentInParent<Avatar>().pitchLevel -= 0.1f;
                 }
                 other.GetChild(i).gameObject.GetComponent<Shape>().SwitchState(TeamEnum.Neutral);
                 other.GetChild(i).gameObject.AddComponent<Rigidbody>();
@@ -175,7 +174,6 @@ public class Shape : MonoBehaviour
         {
             if (col.tag != "Player")
             {
-                Debug.Log("Boom");
                 FreeChild(col.transform);
                 Destroy(col.gameObject);
             }
@@ -187,7 +185,7 @@ public class Shape : MonoBehaviour
         if(other.gameObject.GetComponentInParent<Avatar>() != null)
         {
             if(other.gameObject.GetComponentInParent<Avatar>().pitchLevel > 0.2)
-                other.gameObject.GetComponentInParent<Avatar>().pitchLevel -= 0.2f;
+                other.gameObject.GetComponentInParent<Avatar>().pitchLevel -= 0.1f;
         }
         other.gameObject.GetComponent<Shape>().SwitchState(TeamEnum.Neutral);
         other.gameObject.AddComponent<Rigidbody>();
@@ -241,7 +239,7 @@ public class Shape : MonoBehaviour
             if (gameObject.GetComponentInParent<Avatar>() != null)
             {
                 if (gameObject.GetComponentInParent<Avatar>().pitchLevel <= 2.8)
-                    gameObject.GetComponentInParent<Avatar>().pitchLevel += 0.2f;
+                    gameObject.GetComponentInParent<Avatar>().pitchLevel += 0.1f;
             }
             audioSource.Play();
         }
@@ -256,13 +254,11 @@ public class Shape : MonoBehaviour
 
     void PlayBomb()
     {
-        audioSource.clip = pop[0];
-        audioSource.Play();
+        FindObjectOfType<GameMngr>().PlayBomb();
     }
 
     void PlayImpact()
     {
-        Debug.Log(this.name);
         audioSource.clip = pop[1];
         audioSource.Play();
     }
