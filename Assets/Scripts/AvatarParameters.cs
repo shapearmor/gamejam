@@ -9,8 +9,6 @@ public class AvatarParameters : ScriptableObject
 	public float thrustPower = 5.0f;
 	public float brakeForce = 15.0f;
 	public float rotationSpeed = 5.0f;
-	public AvatarDisplacementMode displacementMode = AvatarDisplacementMode.Pivot;
-
 }
 
 

@@ -60,7 +60,7 @@ public class Avatar : Shape
         if (IsGamePadAvailable())
         {
             GamePad.Index index = (GamePad.Index)((int)(team + 1));
-            Debug.Log("Gamepad ! " + index);
+            // Debug.Log("Gamepad ! " + index);
             Vector2 leftStick = GamePad.GetAxis(GamePad.Axis.LeftStick, index);
             bool thrust = GamePad.GetButton(GamePad.Button.A, index);
             bool brake = GamePad.GetButton(GamePad.Button.B, index);
@@ -72,7 +72,7 @@ public class Avatar : Shape
         else
         {
             int inputIndex = Mathf.Abs((int)team - Input.GetJoystickNames().Length) + 1;
-            Debug.Log("Keyboard ! " + inputIndex);            
+            // Debug.Log("Keyboard ! " + inputIndex);            
             float x = Input.GetAxis("Horizontal_" + inputIndex);
             float y = Input.GetAxis("Vertical_" + inputIndex);
             return new Vector2(x, y);
@@ -83,10 +83,10 @@ public class Avatar : Shape
     {
         int numberOfGamepad = Input.GetJoystickNames().Length;
         string[] joysticks = Input.GetJoystickNames();
-        foreach(string str in joysticks)
-        {
-            Debug.Log(str);
-        }
+        // foreach(string str in joysticks)
+        // {
+        //     Debug.Log(str);
+        // }
         if (numberOfGamepad > (int)team)
         {
             return true;
@@ -120,6 +120,7 @@ public class Avatar : Shape
                 break;
         }
         team = newState;
+        GetComponentInChildren<Animator>().SetInteger("team", (int) team);
     }
 
     private void Rotate(float input)
@@ -130,7 +131,8 @@ public class Avatar : Shape
         // transform.rotation = Quaternion.Euler(euler);
         // Debug.Log("Rotation : " + transform.rotation.eulerAngles);
 
-        rigid.angularVelocity = new Vector3(0.0f, param.rotationSpeed * input * Time.deltaTime, 0.0f);
+        // rigid.angularVelocity = new Vector3(0.0f, param.rotationSpeed * input * Time.deltaTime, 0.0f);
+        transform.Rotate(new Vector3(0.0f, param.rotationSpeed * input * Time.deltaTime, 0.0f));
     }
 
     private void Thrust(float input)
