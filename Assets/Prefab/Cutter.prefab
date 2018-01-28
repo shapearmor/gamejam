@@ -144,7 +144,7 @@ MonoBehaviour:
   pop: []
   skin: []
   explosionRadius: 5
-  explosionForce: 400
+  explosionForce: 0
   team: 5
   wait: 0
 --- !u!135 &135163921319176426
