@@ -37,6 +37,16 @@ public class MainMenuMngr : MonoBehaviour
 		SceneManager.UnloadSceneAsync(SceneManager.GetSceneByBuildIndex(0));
 	}
 
+    public void Back()
+    {
+        animator.SetTrigger("back");
+    }
+
+    public void Credits()
+    {
+        animator.SetTrigger("credits");
+    }
+
     public void UpdatePlayerNumber(Slider number)
     {
         playerNumber = (int)number.value;

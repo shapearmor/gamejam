@@ -66,7 +66,7 @@ public class Avatar : Shape
     private void AnimationUpdate()
     {
         float actualVelocity = rigid.velocity.magnitude;
-        Debug.Log(actualVelocity);
+        // Debug.Log(actualVelocity);
         float t = Mathf.Lerp(0.0f, 1.0f, actualVelocity / maxVelocity);
         float speed = speedEvolution.Evaluate(t);
         animator.SetFloat("speed", speed);
