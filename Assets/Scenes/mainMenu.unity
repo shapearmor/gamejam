@@ -155,7 +155,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 747477122}
   showPlayerNumber: {fileID: 220168542}
-  showRoundNumber: {fileID: 0}
+  showRoundNumber: {fileID: 357520255}
 --- !u!1 &220168540
 GameObject:
   m_ObjectHideFlags: 0
