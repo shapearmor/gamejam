@@ -103,15 +103,15 @@ public class Shape : MonoBehaviour
                 CollisionNeutralToShape(contact.otherCollider);
                 PlayPop();
             }
-            else if (contact.thisCollider.gameObject.CompareTag("Cutter"))
+            else if (contact.thisCollider.gameObject.CompareTag("Cutter") && otherTeam != TeamEnum.Neutral )
             {
                 Cutted(contact);
-                PlayPop();
+                FindObjectOfType<GameMngr>().PlayCut();
             }
             else if (contact.thisCollider.gameObject.CompareTag("Bomb"))
             {
                 Boooom(contact);
-                PlayBomb();
+                FindObjectOfType<GameMngr>().PlayBomb();
             }
             else if (thisTeam != TeamEnum.Neutral && otherTeam != thisTeam && otherTeam != TeamEnum.Neutral)
             {
@@ -250,11 +250,6 @@ public class Shape : MonoBehaviour
         audioSource.clip = pop[0];
         audioSource.Play();
         //System.Threading.Thread.Sleep(2000);
-    }
-
-    void PlayBomb()
-    {
-        FindObjectOfType<GameMngr>().PlayBomb();
     }
 
     void PlayImpact()
