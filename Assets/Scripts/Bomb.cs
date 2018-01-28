@@ -13,7 +13,7 @@ public class Bomb : Shape
         audioSource = gameObject.GetComponent<AudioSource>();
     }
 
-    protected override void PopEffect()
+    protected override void PopEffect(ContactPoint contact)
     {
         Instantiate(prefab, this.transform.position, this.transform.rotation);
     }

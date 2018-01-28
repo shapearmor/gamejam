@@ -13,7 +13,7 @@ public class Avatar : Shape
     private float baseDrag;
 
     public float pitchLevel = 1.4f;
-    public GameObject prefab;
+    public GameObject[] prefab;
 
     [Header("Animation Parameters")]
     public AnimationCurve speedEvolution;
@@ -174,9 +174,27 @@ public class Avatar : Shape
         gameObject.name = setup.ToString();
     }
 
-    protected override void PopEffect()
+    protected override void PopEffect(ContactPoint contact)
     {
-        Instantiate(prefab, this.transform.position, this.transform.rotation);
+        Debug.Log("Death");
+        switch (contact.otherCollider.GetComponent<Avatar>().team)
+        {
+            case TeamEnum.Red:
+                Instantiate(prefab[0], contact.otherCollider.transform.position, contact.otherCollider.transform.rotation);
+                break;
+
+            case TeamEnum.Blue:
+                Instantiate(prefab[1], contact.otherCollider.transform.position, contact.otherCollider.transform.rotation);
+                break;
+
+            case TeamEnum.Yellow:
+                Instantiate(prefab[2], contact.otherCollider.transform.position, contact.otherCollider.transform.rotation);
+                break;
+
+            case TeamEnum.Green:
+                Instantiate(prefab[3], contact.otherCollider.transform.position, contact.otherCollider.transform.rotation);
+                break;
+        }
     }
 }
 
