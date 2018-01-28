@@ -14,6 +14,11 @@ public class Avatar : Shape
 
     public float pitchLevel = 1.4f;
 
+    [Header("Animation Parameters")]
+    public AnimationCurve speedEvolution;
+    public float maxVelocity = 15.0f;
+    private Animator animator;
+
     protected override void Start()
     {
         // base.Start();
@@ -22,6 +27,7 @@ public class Avatar : Shape
         rigid = GetComponent<Rigidbody>();
         baseDrag = rigid.drag;
         audioSource = gameObject.GetComponent<AudioSource>();
+        animator = GetComponentInChildren<Animator>();
     }
 
     protected override void Update()
@@ -53,6 +59,17 @@ public class Avatar : Shape
         {
             rigid.drag = baseDrag;
         }
+
+        AnimationUpdate();
+    }
+
+    private void AnimationUpdate()
+    {
+        float actualVelocity = rigid.velocity.magnitude;
+        Debug.Log(actualVelocity);
+        float t = Mathf.Lerp(0.0f, 1.0f, actualVelocity / maxVelocity);
+        float speed = speedEvolution.Evaluate(t);
+        animator.SetFloat("speed", speed);
     }
 
     private Vector2 GetInput()
@@ -120,7 +137,7 @@ public class Avatar : Shape
                 break;
         }
         team = newState;
-        GetComponentInChildren<Animator>().SetInteger("team", (int) team);
+        GetComponentInChildren<Animator>().SetInteger("team", (int)team);
     }
 
     private void Rotate(float input)
