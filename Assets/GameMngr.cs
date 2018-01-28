@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class GameMngr : MonoBehaviour
-{   
+{
     [Header("Sound parameters")]
     protected AudioSource audioSource;
     public AudioClip[] pop;
@@ -89,6 +89,28 @@ public class GameMngr : MonoBehaviour
                 StartCoroutine(NextRoundTimer());
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            StartCoroutine(Reload());
+        }
+    }
+
+    private IEnumerator Reload()
+    {
+        int savedIndex = SceneManager.GetActiveScene().buildIndex;
+        AsyncOperation operation = SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
+        while (operation.isDone == false)
+        {
+            yield return null;
+        }
+        operation = SceneManager.LoadSceneAsync(savedIndex, LoadSceneMode.Additive);
+        while (operation.isDone == false)
+        {
+            yield return null;
+        }
+        SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(savedIndex));
+        SetupGame();
     }
 
     private void Win()
@@ -157,7 +179,7 @@ public class GameMngr : MonoBehaviour
 
     private int GetNextSceneIndex()
     {
-        return (int) Random.Range(levelsToLoad.a, levelsToLoad.b+1);
+        return (int)Random.Range(levelsToLoad.a, levelsToLoad.b + 1);
     }
 
     private string GetRandomTauntMessage(string playerName)
