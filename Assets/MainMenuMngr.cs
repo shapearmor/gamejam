@@ -40,13 +40,13 @@ public class MainMenuMngr : MonoBehaviour
     public void UpdatePlayerNumber(Slider number)
     {
         playerNumber = (int)number.value;
-        showPlayerNumber.text = "Number of players : " + playerNumber;
+        showPlayerNumber.text = playerNumber.ToString();
     }
 
     public void UpdateRoundNumber(Slider number)
     {
         roundNumber = (int)number.value;
-        showRoundNumber.text = "Number of rounds : " + roundNumber;
+        showRoundNumber.text = roundNumber.ToString();
     }
 
     public void Exit()
