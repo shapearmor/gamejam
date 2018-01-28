@@ -36,11 +36,11 @@ GameObject:
   m_Component:
   - component: {fileID: 4727485758909658}
   - component: {fileID: 33684471387877864}
-  - component: {fileID: 65799106725914462}
   - component: {fileID: 23949724049972000}
   - component: {fileID: 114096629058142366}
   - component: {fileID: 54036334699622264}
   - component: {fileID: 82013642732743828}
+  - component: {fileID: 135297772845023604}
   m_Layer: 0
   m_Name: Bomb
   m_TagString: Bomb
@@ -68,7 +68,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1817803704816640}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 12.7, y: 0, z: 0}
+  m_LocalPosition: {x: 503.24106, y: 1178.9194, z: -8.960899}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4072712371783930}
@@ -115,7 +115,7 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1817803704816640}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!54 &54036334699622264
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -131,18 +131,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &65799106725914462
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1817803704816640}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!82 &82013642732743828
 AudioSource:
   m_ObjectHideFlags: 1
@@ -242,6 +230,18 @@ MonoBehaviour:
   team: 5
   wait: 0
   boomRadius: 2
+--- !u!135 &135297772845023604
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1817803704816640}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.42639345
+  m_Center: {x: -0.18, y: -0.0000030994415, z: -0.050958693}
 --- !u!212 &212507316210649120
 SpriteRenderer:
   m_ObjectHideFlags: 1
