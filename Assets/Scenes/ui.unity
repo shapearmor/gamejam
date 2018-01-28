@@ -728,6 +728,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pop:
   - {fileID: 8300000, guid: a97715c13684dfa429a0ac2144d70f7c, type: 3}
+  - {fileID: 8300000, guid: 89a7b30dab49a004da37685231c0fdeb, type: 3}
   numberOfPlayers: 2
   numberOfRound: 5
   playersSpawns:

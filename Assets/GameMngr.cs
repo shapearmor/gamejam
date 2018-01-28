@@ -175,6 +175,12 @@ public class GameMngr : MonoBehaviour
         audioSource.clip = pop[0];
         audioSource.Play();
     }
+
+    public void PlayCut()
+    {
+        audioSource.clip = pop[1];
+        audioSource.Play();
+    }
 }
 
 [System.Serializable]
