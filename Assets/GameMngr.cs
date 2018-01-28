@@ -100,11 +100,12 @@ public class GameMngr : MonoBehaviour
             if (i < numberOfPlayers)
             {
                 scoreBoard[i].text = scores[i].ToString();
-                scoreBoard[i].color = playerColors[i];
+                // scoreBoard[i].color = playerColors[i];
             }
             else
             {
                 scoreBoard[i].text = System.String.Empty;
+                scoreBoard[i].GetComponentInParent<Image>().enabled = false;
             }
         }
 
