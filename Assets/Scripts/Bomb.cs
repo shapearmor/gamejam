@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Bomb : Shape
 {
+    public GameObject prefab;
     public float boomRadius = 2.5f;
     protected override void Start()
     {
@@ -12,4 +13,9 @@ public class Bomb : Shape
         audioSource = gameObject.GetComponent<AudioSource>();
     }
 
+    protected override void OnDestroy()
+    {
+        Instantiate(prefab, this.transform.position, this.transform.rotation);
+        base.OnDestroy();
+    }
 }

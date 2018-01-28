@@ -229,6 +229,7 @@ MonoBehaviour:
   explosionForce: 400
   team: 5
   wait: 0
+  prefab: {fileID: 1037312331234310, guid: 761ed0588dfbaeb40864a20542d06b8e, type: 2}
   boomRadius: 2
 --- !u!135 &135297772845023604
 SphereCollider:

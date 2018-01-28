@@ -210,7 +210,7 @@ public class Shape : MonoBehaviour
         Destroy(contact.thisCollider.gameObject);
     }
 
-    void OnDestroy()
+    protected virtual void OnDestroy()
     {
         Collider[] cols = Physics.OverlapSphere(transform.position, explosionRadius);
         foreach(Collider col in cols)
