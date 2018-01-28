@@ -739,7 +739,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 3c7c8527f7078df4890f572e6b82911e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 294fcc63d00b3d94aaea2a7de7c767d1, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -780,6 +780,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b85789f863c6ac74386e7869d18e491c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pop: []
   numberOfPlayers: 2
   numberOfRound: 5
   playersSpawns:
@@ -800,10 +801,10 @@ MonoBehaviour:
   - {fileID: 1586214151}
   - {fileID: 813943312}
   playerColors:
-  - {r: 1, g: 0, b: 0, a: 1}
-  - {r: 0, g: 0, b: 1, a: 1}
-  - {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  - {r: 0, g: 1, b: 0, a: 1}
+  - {r: 1, g: 0.066176474, b: 0.20141968, a: 1}
+  - {r: 0.115051895, g: 0.22812004, b: 0.97794116, a: 1}
+  - {r: 0.9411765, g: 0.8865852, b: 0.25605538, a: 1}
+  - {r: 0.18166089, g: 0.61764705, b: 0.18166089, a: 1}
   winMessages:
   - name is unstoppable.
   - name is doing your mother.
@@ -1142,8 +1143,8 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: f1947e50143fd0248a1695380acefc1c, type: 3}
-    m_FontSize: 125
-    m_FontStyle: 1
+    m_FontSize: 110
+    m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 1
     m_MaxSize: 150
@@ -1217,7 +1218,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 1d07db2dc9c49204c94f5531dea720b0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 08d19bf6eec748447893b8f7a5962ccc, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

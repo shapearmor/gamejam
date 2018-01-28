@@ -115,7 +115,7 @@ public class GameMngr : MonoBehaviour
             }
         }
 
-        roundText.text = "Round " + (actualNumberOfRounds + 1) + " of " + numberOfRound;
+        roundText.text = "Round " + (actualNumberOfRounds + 1) + " out of " + numberOfRound;
     }
 
     private IEnumerator NextRoundTimer()
