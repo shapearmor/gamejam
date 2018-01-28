@@ -92,6 +92,7 @@ public class Shape : MonoBehaviour
             }
             else if (thisTeam != otherTeam && contact.thisCollider.gameObject.tag == "Shape")
             {
+                PopEffect();
                 PlayDeath();
                 DestroyBoth(contact);
             }
@@ -110,6 +111,7 @@ public class Shape : MonoBehaviour
             }
             else if (contact.thisCollider.gameObject.CompareTag("Bomb"))
             {
+                PopEffect();
                 Boooom(contact);
                 FindObjectOfType<GameMngr>().PlayBomb();
             }
@@ -221,6 +223,11 @@ public class Shape : MonoBehaviour
                 rb.AddExplosionForce(explosionForce, transform.position, explosionRadius);
             }
         }
+    }
+
+    protected virtual void PopEffect()
+    {
+        return;
     }
 
     void CollisionNeutralToPlayer(Collider other)

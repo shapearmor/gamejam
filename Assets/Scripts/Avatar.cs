@@ -174,10 +174,9 @@ public class Avatar : Shape
         gameObject.name = setup.ToString();
     }
 
-    protected override void OnDestroy()
+    protected override void PopEffect()
     {
         Instantiate(prefab, this.transform.position, this.transform.rotation);
-        base.OnDestroy();
     }
 }
 

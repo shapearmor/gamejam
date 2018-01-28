@@ -13,9 +13,8 @@ public class Bomb : Shape
         audioSource = gameObject.GetComponent<AudioSource>();
     }
 
-    protected override void OnDestroy()
+    protected override void PopEffect()
     {
         Instantiate(prefab, this.transform.position, this.transform.rotation);
-        base.OnDestroy();
     }
 }
